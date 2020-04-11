@@ -6,7 +6,16 @@ import Tabs from './Tabs';
 const Stack = createStackNavigator();
 
 export default () => (
-    <Stack.Navigator>
+    <Stack.Navigator
+        screenOptions={{
+            headerStyle: {
+                backgroundColor: "black",
+                borderBottomColor: "black",
+                shadowColor: "black"
+            },
+            headerTintColor: "white",
+            headerBackTitleVisible: false
+        }}>
         <Stack.Screen name="Tab" component={Tabs}></Stack.Screen>
         <Stack.Screen name="Detail" component={Detail}></Stack.Screen>
     </Stack.Navigator>
