@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Movies from '../screen/Movies'
+import Movies from "../screen/Movies/index";
 import Search from '../screen/Search'
 import Favs from '../screen/Favs'
 import Tv from '../screen/Tv'
