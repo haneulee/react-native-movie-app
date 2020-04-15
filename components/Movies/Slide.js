@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
 import PropTypes from "prop-types";
-import { Dimensions, Image, View, Text } from "react-native";
+import { Image, View, Text } from "react-native";
 import Poster from "../Poster";
 import { TouchableOpacity } from "react-native";
 import Votes from "../Votes";
 import { trimText } from "../../utils"
+import { apiImage } from "../../api";
 
 const Container = styled.View`
   height: 100%;
@@ -61,7 +62,7 @@ const ButtonText = styled.Text`
 
 const Slide = ({ id, title, backgroundImage, votes, overview, poster }) => (
     <Container>
-        <BG source={{ uri: backgroundImage }} />
+        <BG source={{ uri: apiImage(backgroundImage) }} />
         <Content>
             <Poster url={poster} />
             <Data>
