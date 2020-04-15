@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { ActivityIndicator, View, ScrollView } from "react-native";
-import Title from "../../components/Title"
+import { ActivityIndicator, View } from "react-native";
 import Vertical from "../../components/Vertical"
 import Horizontal from "../../components/Horizontal";
 import ScrollContainer from "../../components/ScrollContainer";
@@ -12,8 +11,8 @@ import Slide from "../../components/Movies/Slide";
 
 const Container = styled.View``;
 
-export default ({ loading, nowPlaying, popular, upcoming }) => (
-    <ScrollContainer loading={loading}>
+export default ({ refreshFn, loading, nowPlaying, popular, upcoming }) => (
+    <ScrollContainer refreshFn={refreshFn} loading={loading}>
         <>
             <Banner>
                 {nowPlaying.map(movie => (

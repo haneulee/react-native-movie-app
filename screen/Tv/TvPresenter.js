@@ -12,8 +12,8 @@ const Container = styled.View`
   margin-top: 30px;
 `;
 
-export default ({ loading, popular, topRated, today, thisWeek }) => (
-    <ScrollContainer loading={loading}>
+export default ({ refreshFn, loading, popular, topRated, today, thisWeek }) => (
+    <ScrollContainer refreshFn={refreshFn} loading={loading}>
         <Container>
             <HorizontalSlider title="Popular Shows">
                 {popular.map(show => (
