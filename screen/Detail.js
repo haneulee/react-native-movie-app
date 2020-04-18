@@ -1,8 +1,11 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 
-export default ({ navigation }) => (
-    <View>
-        <Text>Detail</Text>
-    </View>
-);
+export default ({ navigation, route: { params: { id, title } } }) => {
+    navigation.setOptions({ title });
+    return (
+        <View>
+            <Text>{id}</Text>
+        </View>
+    )
+};
