@@ -73,48 +73,48 @@ export default ({ openBrowser, result, loading }) => (
                 </Container>
             </Header>
             <Data>
-                {result.overview && (
+                {result.overview ? (
                     <>
                         <DataName>Overview</DataName>
                         <DataValue>{result.overview}</DataValue>
                     </>
-                )}
-                {loading && (
+                ) : null}
+                {loading ? (
                     <ActivityIndicator style={{ marginTop: 30 }} color={"white"} />
-                )}
-                {result.spoken_languages && (
+                ) : null}
+                {result.spoken_languages ? (
                     <>
                         <DataName>Languages</DataName>
                         <DataValue>
                             {result.spoken_languages.map(l => `${l.name} `)}
                         </DataValue>
                     </>
-                )}
-                {result.release_date && (
+                ) : null}
+                {result.release_date ? (
                     <>
                         <DataName>Release Date</DataName>
                         <DataValue>{formatDate(result.release_date)}</DataValue>
                     </>
-                )}
-                {result.status && (
+                ) : null}
+                {result.status ? (
                     <>
                         <DataName>Status</DataName>
                         <DataValue>{result.status}</DataValue>
                     </>
-                )}
-                {result.runtime && (
+                ) : null}
+                {result.runtime ? (
                     <>
                         <DataName>Runtime</DataName>
                         <DataValue>{result.runtime} minutes</DataValue>
                     </>
-                )}
-                {result.first_air_date && (
+                ) : null}
+                {result.first_air_date ? (
                     <>
                         <DataName>First Air Date</DataName>
                         <DataValue>{formatDate(result.first_air_date)}</DataValue>
                     </>
-                )}
-                {result.genres && (
+                ) : null}
+                {result.genres ? (
                     <>
                         <DataName>Genres</DataName>
                         <DataValue>
@@ -123,24 +123,42 @@ export default ({ openBrowser, result, loading }) => (
                             )}
                         </DataValue>
                     </>
-                )}
-                {result.number_of_episodes && (
+                ) : null}
+                {result.number_of_episodes ? (
                     <>
                         <DataName>Seasons / Episodes</DataName>
                         <DataValue>
                             {result.number_of_seasons} / {result.number_of_episodes}
                         </DataValue>
                     </>
-                )}
-                {result.imdb_id && (
-                    <Link
-                        text={"IMDB Page"}
-                        icon={"imdb"}
-                        onPress={() =>
-                            openBrowser(`https://www.imdb.com/title/${result.imdb_id}`)
-                        }
-                    />
-                )}
+                ) : null}
+                {result.imdb_id ? (
+                    <>
+                        <DataName>Links</DataName>
+                        <Link
+                            text={"IMDB Page"}
+                            icon={"imdb"}
+                            onPress={() =>
+                                openBrowser(`https://www.imdb.com/title/${result.imdb_id}`)
+                            }
+                        />
+                    </>
+                ) : null}
+                {result.videos.results ?.length > 0 ? (
+                    <>
+                        <DataName>Videos</DataName>
+                        {result.videos.results.map(video => (
+                            <Link
+                                text={video.name}
+                                key={video.id}
+                                icon="youtube-play"
+                                onPress={() =>
+                                    openBrowser(`https://www.youtube.com/watch?v=${video.key}`)
+                                }
+                            />
+                        ))}
+                    </>
+                ) : null}
             </Data>
         </>
     </ScrollContainer>

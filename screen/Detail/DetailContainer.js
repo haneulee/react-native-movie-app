@@ -7,7 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 export default ({ navigation, route: {
     params: { isTv, id, title, backgroundImage, poster, votes, overview }
 } }) => {
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [detail, setDetail] = useState({
         loading: true,
         result: {
@@ -15,7 +15,10 @@ export default ({ navigation, route: {
             backgroundImage,
             poster,
             overview,
-            votes
+            votes,
+            videos: {
+                results: []
+            }
         }
     });
     const getData = async () => {
