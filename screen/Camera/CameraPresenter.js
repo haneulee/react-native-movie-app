@@ -1,13 +1,16 @@
 import React, { useState, useEffect, Fragment, useRef } from "react";
 import { ActivityIndicator, Dimensions, View, Text, TouchableOpacity } from "react-native";
-// import { Camera, Permissions } from "expo";
-import styled from "styled-components/native";
-import { MaterialIcons } from '@expo/vector-icons'
-import { Camera } from 'expo-camera';
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 import * as FaceDetector from 'expo-face-detector';
 import * as FileSystem from 'expo-file-system';
+import { Camera } from 'expo-camera';
+import styled from "styled-components/native";
+import { MaterialIcons } from '@expo/vector-icons'
 
 const { width, height } = Dimensions.get("window");
+
+const ALBUM_NAME = "Smiley Cam";
 
 const CenterView = styled.View`
    flex: 1;
@@ -73,7 +76,33 @@ export default ({ results }) => {
             setSmileDetected(false);
         }
     };
-    const savePhoto = async uri => { };
+    const savePhoto = async uri => {
+        try {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status === "granted") {
+                const asset = await MediaLibrary.createAssetAsync(uri);
+                let album = await MediaLibrary.getAlbumAsync(ALBUM_NAME);
+                if (album === null) {
+                    // album = await MediaLibrary.createAlbumAsync(
+                    //     ALBUM_NAME,
+                    //     Platform.OS !== "iOS" ? asset : null
+                    // );
+                    album = await MediaLibrary.createAlbumAsync(ALBUM_NAME, asset);
+                } else {
+                    await MediaLibrary.addAssetsToAlbumAsync([asset], album.id);
+                }
+                setTimeout(
+                    () =>
+                        setSmileDetected(false),
+                    2000
+                );
+            } else {
+                setHasPermission(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     renderConetent = () => {
         if (hasPermission === true) {
@@ -115,6 +144,7 @@ export default ({ results }) => {
     }
     return (
         <CenterView>
+            <Text>Smile to take photo</Text>
             {renderConetent()}
         </CenterView>
     );
